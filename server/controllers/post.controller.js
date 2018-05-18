@@ -1,5 +1,29 @@
 const Post = require('../models/post.model');
 
+exports.create = function (req, res) {
+  const post = new Post({
+    title: req.body.data.title,
+    body: req.body.data.body,
+    author: req.body.data.author,
+    isPublished: req.body.data.isPublished
+  });
+
+  post.save()
+    .then(function (createdPost) {
+      return res.status(200).json({
+        status: 200,
+        data: createdPost,
+        message: 'Success'
+      });
+    })
+    .catch(function (err) {
+      return res.status(400).json({
+        status: 400,
+        message: err.message
+      });
+    });
+}
+
 exports.get = function (req, res) {
   Post.findById(req.params.id)
     .then(function (post) {
@@ -34,38 +58,16 @@ exports.list = function (req, res) {
     });
 }
 
-exports.create = function (req, res) {
-  const post = new Post({
-    title: req.body.data.title,
-    body: req.body.data.body,
-    author: req.body.data.author,
-    isPublished: req.body.data.isPublished
-  });
 
-  post.save()
-    .then(function (createdPost) {
-      return res.status(200).json({
-        status: 200,
-        data: createdPost,
-        message: 'Success'
-      });
-    })
-    .catch(function (err) {
-      return res.status(400).json({
-        status: 400,
-        message: err.message
-      });
-    });
-}
 
 exports.update = function (req, res) {
   Post.findById(req.params.id)
     .then(function (post) {
-      post.title = req.body.data.title;
-      post.body = req.body.data.body;
-      post.author = req.body.data.author;
-      post.date = req.body.data.date;
-      post.isPublished = req.body.data.isPublished;
+      post.title = req.body.data.title || post.title;
+      post.body = req.body.data.body || post.body;
+      post.author = req.body.data.author || post.author;
+      post.date = req.body.data.date || post.date;
+      post.isPublished = req.body.data.isPublished || post.isPublished;
 
       post.save()
         .then(function (updatedPost) {
