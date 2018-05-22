@@ -3,7 +3,7 @@ const postRoutes = require('./post.route');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', function (req, res) {
   res.send('API works!');
 });
 
