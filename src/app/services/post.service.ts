@@ -16,9 +16,7 @@ export class PostService {
   public getPosts(): Observable<Post[]> {
     return this.http
       .get(this.postsUrl)
-      .map(response => {
-        return response['data'] as Post[];
-      });
+      .map(response => response['data'] as Post[]);
   }
 
   public getPublishedPosts(): Observable<Post[]> {
@@ -29,8 +27,6 @@ export class PostService {
   public getPostById(id: string): Observable<Post> {
     return this.http
       .get(`${this.postsUrl}/${id}`)
-      .map(response => {
-        return response['data'] as Post;
-      });
+      .map(response => response['data'] as Post);
   }
 }

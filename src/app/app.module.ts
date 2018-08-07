@@ -14,7 +14,7 @@ import { PostDetailsComponent } from './components/post-details/post-details.com
 import {PageTitleService} from './services/page-title.service';
 
 const appRoutes: Routes = [
-  { path: '', component: PostsListComponent, data: { hasTitle: false } },
+  { path: '', component: PostsListComponent },
   { path: 'post/:id', component: PostDetailsComponent }
 ];
 
