@@ -24,7 +24,7 @@ app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
-mongoose.connect('mongodb://127.0.0.1:27017/mean_tutorial');
+mongoose.connect('mongodb://127.0.0.1:27017/mean_tutorial', { useNewUrlParser: true });
 mongoose.connection.on('error', console.error.bind(console, 'Database connection error:'));
 mongoose.connection.once('open', function () {
   console.info('Successfully connected to the database');
