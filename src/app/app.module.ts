@@ -13,7 +13,7 @@ import { BlogDescriptionComponent } from './components/blog-description/blog-des
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import {PageTitleService} from './services/page-title.service';
 
-const appRoutes: Routes = [
+const ROUTES: Routes = [
   { path: '', component: PostsListComponent },
   { path: 'post/:id', component: PostDetailsComponent }
 ];
@@ -31,9 +31,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(
-      appRoutes
-    )
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [PostService, PageTitleService],
   bootstrap: [AppComponent]
