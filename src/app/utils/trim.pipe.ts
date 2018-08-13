@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'trim'
 })
 export class TrimPipe implements PipeTransform {
-  forbiddenChars: string[] = [',', '.'];
+  private forbiddenChars: string[] = [',', '.'];
 
   transform(string: string, limit: number = 50, ellipsis: string = '...'): any {
     const strippedString = this.stripHTMLTags(string);
@@ -17,14 +17,14 @@ export class TrimPipe implements PipeTransform {
     return `${limitedString}${ellipsis}`;
   }
 
-  stripHTMLTags(string: string): string {
+  private stripHTMLTags(string: string): string {
     const tmpDiv = document.createElement('div');
     tmpDiv.innerHTML = string;
 
     return tmpDiv.textContent;
   }
 
-  endsWithForbiddenChar(string: string): boolean {
+  private endsWithForbiddenChar(string: string): boolean {
     return this.forbiddenChars.includes(string.slice(-1));
   }
 }

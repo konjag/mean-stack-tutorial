@@ -3,13 +3,9 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class PageTitleService {
+  title = new Subject<string>();
 
-  private titleChangedSource = new Subject<string>();
-
-  titleChanged$ = this.titleChangedSource.asObservable();
-
-  changeTitle(title: string) {
-    this.titleChangedSource.next(title);
+  public changeTitle(title: string) {
+    this.title.next(title);
   }
-
 }

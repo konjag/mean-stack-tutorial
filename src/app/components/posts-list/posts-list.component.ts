@@ -15,11 +15,6 @@ export class PostsListComponent {
     private pageTitleService: PageTitleService
   ) {
     postService.getPublishedPosts()
-      .map((posts: Post[]) => {
-        return posts.sort((a, b) => {
-          return new Date(b.date).getTime() - new Date(a.date).getTime();
-        });
-      })
       .subscribe((posts: Post[]) => {
         this.postsList = posts;
       });

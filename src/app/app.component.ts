@@ -11,10 +11,9 @@ export class AppComponent {
   constructor(
     private pageTitleService: PageTitleService
   ) {
-    pageTitleService.titleChanged$
+    pageTitleService.title
       .subscribe(title => {
         this.title = title;
       });
   }
-
 }

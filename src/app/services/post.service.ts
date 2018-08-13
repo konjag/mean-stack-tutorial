@@ -21,7 +21,11 @@ export class PostService {
 
   public getPublishedPosts(): Observable<Post[]> {
     return this.getPosts()
-      .map(posts => posts.filter(post => post.isPublished));
+      .map(posts =>  {
+        return posts
+          .filter(post => post.isPublished)
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      });
   }
 
   public getPostById(id: string): Observable<Post> {

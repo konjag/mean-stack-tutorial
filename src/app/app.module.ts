@@ -4,16 +4,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { PostService } from './services/post.service';
 import { PostsListComponent } from './components/posts-list/posts-list.component';
-import { PostComponent } from './components/post/post.component';
-import { TrimPipe } from './utils/trim.pipe';
 import { HeaderComponent } from './components/header/header.component';
 import { BlogDescriptionComponent } from './components/blog-description/blog-description.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
-import {PageTitleService} from './services/page-title.service';
+import { PostService } from './services/post.service';
+import { PageTitleService } from './services/page-title.service';
+import { TrimPipe } from './utils/trim.pipe';
 
-const ROUTES: Routes = [
+const appRoutes: Routes = [
   { path: '', component: PostsListComponent },
   { path: 'post/:id', component: PostDetailsComponent }
 ];
@@ -22,7 +21,6 @@ const ROUTES: Routes = [
   declarations: [
     AppComponent,
     PostsListComponent,
-    PostComponent,
     TrimPipe,
     HeaderComponent,
     BlogDescriptionComponent,
@@ -31,7 +29,7 @@ const ROUTES: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     PostService,

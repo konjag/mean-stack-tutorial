@@ -24,5 +24,4 @@ export class PostDetailsComponent {
         this.pageTitleService.changeTitle(this.post.title);
       });
   }
-
 }
