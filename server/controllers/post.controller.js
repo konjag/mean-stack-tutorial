@@ -93,6 +93,7 @@ exports.update = function (req, res) {
 }
 
 exports.delete = function (req, res) {
+  console.log('delete');
   Post.findById(req.params.id)
     .then(function (post) {
       post.remove()
