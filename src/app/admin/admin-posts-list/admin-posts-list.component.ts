@@ -7,7 +7,7 @@ import { PostService } from '../../services/post.service';
   templateUrl: './admin-posts-list.component.html'
 })
 export class AdminPostsListComponent {
-  @Input() limit = null;
+  @Input() limit = 0;
   postsList: Post[];
 
   constructor(
@@ -16,6 +16,10 @@ export class AdminPostsListComponent {
     postService.getPosts()
       .subscribe((posts: Post[]) => {
         this.postsList = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+        if (this.limit > 0) {
+          this.postsList = this.postsList.slice(0, this.limit);
+        }
       });
   }
 

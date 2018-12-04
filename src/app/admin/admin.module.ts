@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin/admin.component';
@@ -9,16 +10,15 @@ import { PipesModule } from '../pipes/pipes.module';
 import { AdminPostEditComponent } from './admin-post-edit/admin-post-edit.component';
 import { AdminPostCreateComponent } from './admin-post-create/admin-post-create.component';
 import { AdminPostFormComponent } from './admin-post-form/admin-post-form.component';
-import { FormsModule } from '@angular/forms';
 import { AdminPostsListComponent } from './admin-posts-list/admin-posts-list.component';
 import { AdminPostsComponent } from './admin-posts/admin-posts.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     AdminRoutingModule,
-    PipesModule
+    PipesModule,
+    FormsModule
   ],
   declarations: [
     AdminComponent,

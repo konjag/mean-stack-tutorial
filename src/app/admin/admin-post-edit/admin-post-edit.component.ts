@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import Post from '../../models/post.model';
@@ -8,7 +8,7 @@ import Post from '../../models/post.model';
   templateUrl: './admin-post-edit.component.html',
 
 })
-export class AdminPostEditComponent implements OnInit {
+export class AdminPostEditComponent {
   post: Post;
   originalTitle = '';
 
@@ -23,9 +23,6 @@ export class AdminPostEditComponent implements OnInit {
         this.post = post;
         this.originalTitle = post.title;
       });
-  }
-
-  ngOnInit() {
   }
 
 }
