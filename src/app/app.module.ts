@@ -10,25 +10,35 @@ import { BlogDescriptionComponent } from './components/blog-description/blog-des
 import { PostDetailsComponent } from './components/post-details/post-details.component';
 import { PostService } from './services/post.service';
 import { PageTitleService } from './services/page-title.service';
-import { TrimPipe } from './utils/trim.pipe';
+import { AdminModule } from './admin/admin.module';
+import { BaseComponent } from './components/base/base.component';
+import { PipesModule } from './pipes/pipes.module';
 
 const appRoutes: Routes = [
-  { path: '', component: PostsListComponent },
-  { path: 'post/:id', component: PostDetailsComponent }
+  {
+    path: '',
+    component: BaseComponent,
+    children: [
+      { path: '', component: PostsListComponent },
+      { path: 'post/:id', component: PostDetailsComponent }
+    ]
+  }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     PostsListComponent,
-    TrimPipe,
     HeaderComponent,
     BlogDescriptionComponent,
     PostDetailsComponent,
+    BaseComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    AdminModule,
+    PipesModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [

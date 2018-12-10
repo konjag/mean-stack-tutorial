@@ -33,4 +33,20 @@ export class PostService {
       .get(`${this.postsUrl}/${id}`)
       .map(response => response['data'] as Post);
   }
+
+  public addPost(post: Post): Observable<Post> {
+    return this.http
+      .post<Post>(this.postsUrl, { data: post });
+  }
+
+  public editPost(id: string, post: Post): Observable<Post> {
+    return this.http
+      .put<Post>(`${this.postsUrl}/${id}`, { data: post });
+  }
+
+  public deletePost(id: string): Observable<Post> {
+    return this.http
+      .delete(`${this.postsUrl}/${id}`)
+      .map(response => response['data'] as Post);
+  }
 }
