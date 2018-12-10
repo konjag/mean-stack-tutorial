@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import Post from '../../models/post.model';
 import { PostService } from '../../services/post.service';
 
@@ -6,14 +6,16 @@ import { PostService } from '../../services/post.service';
   selector: 'app-admin-posts-list',
   templateUrl: './admin-posts-list.component.html'
 })
-export class AdminPostsListComponent {
+export class AdminPostsListComponent implements OnInit {
   @Input() limit = 0;
   postsList: Post[];
 
   constructor(
     private postService: PostService
-  ) {
-    postService.getPosts()
+  ) {}
+
+  ngOnInit() {
+    this.postService.getPosts()
       .subscribe((posts: Post[]) => {
         this.postsList = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
