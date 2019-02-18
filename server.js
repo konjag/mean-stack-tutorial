@@ -3,7 +3,10 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const routes = require('./server/routes');
+
+require('./server/config/passport.config');
 
 const app = express();
 
@@ -19,6 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
+app.use(passport.initialize());
 app.use('/api', routes);
 
 app.get('*', function (req, res) {
