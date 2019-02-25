@@ -12,9 +12,7 @@ exports.create = function (req, res) {
   user.save()
     .then(function (createdUser) {
       return res.status(200).json({
-        status: 200,
-        data: createdUser,
-        message: 'Success'
+        token: createdUser.generateJwt()
       });
     })
     .catch(function (err) {
@@ -26,10 +24,7 @@ exports.create = function (req, res) {
 }
 
 exports.login = function (req, res) {
-  console.log('login');
-
   passport.authenticate('local', function(err, user, info) {
-    console.log('auth');
     if (err) {
       return res.status(400).json({
         status: 400,
@@ -45,8 +40,24 @@ exports.login = function (req, res) {
     }
 
     return res.status(200).json({
-      status: 200,
-      data: user
+      token: user.generateJwt()
     });
   })(req, res);
+}
+
+exports.get = function(req, res) {
+  User.findById(req.user._id, { hash: 0 })
+    .then(function (user) {
+      return res.status(200).json({
+        status: 200,
+        data: user,
+        message: "Success"
+      });
+    })
+    .catch(function (err) {
+      return res.status(400).json({
+        status: 400,
+        message: err.message
+      });
+    });
 }

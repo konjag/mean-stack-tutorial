@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -15,6 +16,10 @@ const UserSchema = new mongoose.Schema({
   hash: {
     type: String,
     required: true
+  },
+  admin: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -27,15 +32,12 @@ UserSchema.methods.validPassword = function (password) {
 }
 
 UserSchema.methods.generateJwt = function () {
-  let expiry = new Date();
-  expiry.setDate(expiry.getDate() + 7);
-
   return jwt.sign({
     _id: this._id,
     email: this.email,
     name: this.name,
-    exp: parseInt(expiry.getTime() / 1000)
-  }, 'TheBestKeptSecret');
+    admin: this.admin
+  }, config.JWT_SECRET, { expiresIn: '1h' });
 }
 
 const User = mongoose.model('User', UserSchema);

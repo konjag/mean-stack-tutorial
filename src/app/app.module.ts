@@ -13,6 +13,12 @@ import { PageTitleService } from './services/page-title.service';
 import { AdminModule } from './admin/admin.module';
 import { BaseComponent } from './components/base/base.component';
 import { PipesModule } from './pipes/pipes.module';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { FormsModule } from '@angular/forms';
+import { UserService } from './services/user.service';
+import { CanActivateAdminService } from './services/can-activate-admin.service';
 
 const appRoutes: Routes = [
   {
@@ -20,7 +26,9 @@ const appRoutes: Routes = [
     component: BaseComponent,
     children: [
       { path: '', component: PostsListComponent },
-      { path: 'post/:id', component: PostDetailsComponent }
+      { path: 'post/:id', component: PostDetailsComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent }
     ]
   }
 ];
@@ -33,17 +41,23 @@ const appRoutes: Routes = [
     BlogDescriptionComponent,
     PostDetailsComponent,
     BaseComponent,
+    LoginComponent,
+    RegisterComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AdminModule,
     PipesModule,
+    FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
     PostService,
-    PageTitleService
+    UserService,
+    PageTitleService,
+    CanActivateAdminService
   ],
   bootstrap: [AppComponent]
 })

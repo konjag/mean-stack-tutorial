@@ -10,6 +10,15 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item" *ngIf="!isLoggedIn">
+        <a class="nav-link" routerLink="/register">Register</a>
+      </li>
+      <li class="nav-item" *ngIf="!isLoggedIn">
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <span class="nav-link" (click)="onLogoutClick()">Logout ({{ user.name }})</span>
+      </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/admin">Admin Panel</a>
       </li>

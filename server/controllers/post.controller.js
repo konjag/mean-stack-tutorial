@@ -58,8 +58,6 @@ exports.list = function (req, res) {
     });
 }
 
-
-
 exports.update = function (req, res) {
   Post.findById(req.params.id)
     .then(function (post) {

@@ -9,6 +9,6 @@ router.get('/', function (req, res) {
 });
 
 router.use('/posts', postRoutes);
-router.use('/auth', userRoutes);
+router.use('/user', userRoutes);
 
 module.exports = router;

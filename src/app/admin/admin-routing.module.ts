@@ -5,6 +5,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AdminPostEditComponent } from './admin-post-edit/admin-post-edit.component';
 import { AdminPostCreateComponent } from './admin-post-create/admin-post-create.component';
 import { AdminPostsComponent } from './admin-posts/admin-posts.component';
+import { CanActivateAdminService } from '../services/can-activate-admin.service';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [CanActivateAdminService],
         children: [
           { path: '', component: AdminDashboardComponent },
           { path: 'posts', component: AdminPostsComponent },
