@@ -7,14 +7,9 @@ export class CanActivateAdminService implements CanActivate {
 
   constructor(
     private userService: UserService
-  ) { }
+  ) {}
 
   canActivate() {
-    let isAdmin = false;
-    this.userService.currentUser.subscribe(user => {
-      isAdmin = user.admin;
-    });
-
-    return isAdmin;
+    return this.userService.getIsAdmin();
   }
 }

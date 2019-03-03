@@ -6,39 +6,14 @@ import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 import { User, UserPayload } from '../models/user.model';
 import Token from '../models/token.model';
-import TokenPayload from '../models/token.model';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class UserService {
   userUrl = `${environment.apiUrl}/user`;
   currentUser = new Subject<User>();
-  isLoggedInSub = new Subject<boolean>();
+  isLoggedIn = new Subject<boolean>();
   private token: string;
-
-  // currentUser = new Observable<User>((observer) => {
-  //   const token = this.getToken();
-
-  //   if (token) {
-  //     observer.next(jwtDecode<User>(token));
-  //   } else {
-  //     observer.next(null);
-  //   }
-
-  //   observer.complete();
-  // });
-
-  // isLoggedInObs = new Observable<boolean>((observer) => {
-  //   this.currentUser.subscribe(user => {
-  //     if (user) {
-  //       observer.next(user.exp > Date.now() / 1000);
-  //     } else {
-  //       observer.next(false);
-  //     }
-
-  //     observer.complete();
-  //   });
-  // });
 
   constructor(
     private http: HttpClient
@@ -62,7 +37,7 @@ export class UserService {
     localStorage.removeItem('token');
   }
 
-  private setCurrentUser(): void {
+  public setCurrentUser(): void {
     const token = this.getToken();
 
     if (token) {
@@ -70,19 +45,38 @@ export class UserService {
     } else {
       this.currentUser.next(null);
     }
+
+    this.setIsLoggedIn();
   }
 
   private setIsLoggedIn(): void {
-      if (this.currentUser) {
-        this.isLoggedInSub.next(user.exp > Date.now() / 1000);
-      } else {
-        this.isLoggedInSub.next(false);
-      }
+    const token = this.getToken();
+
+    if (!token) {
+      this.isLoggedIn.next(false);
+      return;
+    }
+
+    const user = jwtDecode<User>(token);
+
+    this.isLoggedIn.next(user.exp > Date.now() / 1000);
+  }
+
+  public getIsAdmin(): boolean {
+    const token = this.getToken();
+
+    if (!token) {
+      return false;
+    }
+
+    const user = jwtDecode<User>(token);
+
+    return user.admin;
   }
 
   public register(user: UserPayload): Observable<any> {
     return this.http
-      .post(`${this.userUrl}/register`, user)
+      .post(`${this.userUrl}/signup`, { data: user })
       .map(({ token }: Token) => {
         this.setToken(token);
         this.setCurrentUser();
@@ -100,5 +94,6 @@ export class UserService {
 
   public logout(): void {
     this.deleteToken();
+    this.setCurrentUser();
   }
 }
