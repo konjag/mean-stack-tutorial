@@ -8,6 +8,7 @@ import { User } from '../../models/user.model';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
   user: User = null;
 
   constructor(
@@ -15,13 +16,21 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userService.isLoggedInSub.subscribe(isLoggedIn => {
+    this.userService.isLoggedIn.subscribe((isLoggedIn: boolean) => {
       this.isLoggedIn = isLoggedIn;
     });
 
-    this.userService.currentUser.subscribe(user => {
+    this.userService.currentUser.subscribe((user: User) => {
       this.user = user;
+
+      if (user) {
+        this.isAdmin = user.admin;
+      } else {
+        this.isAdmin = false;
+      }
     });
+
+    this.userService.setCurrentUser();
   }
 
   onLogoutClick() {

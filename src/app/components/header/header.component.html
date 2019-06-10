@@ -17,9 +17,9 @@
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
       <li class="nav-item" *ngIf="isLoggedIn">
-        <span class="nav-link" (click)="onLogoutClick()">Logout ({{ user.name }})</span>
+        <span class="nav-link" (click)="onLogoutClick()" style="cursor: pointer">Logout ({{ user?.name }})</span>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="isAdmin">
         <a class="nav-link" routerLink="/admin">Admin Panel</a>
       </li>
     </ul>
