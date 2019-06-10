@@ -33,7 +33,6 @@
     "mongoose": "^5.2.7",
     "nodemon": "^1.18.3",
     "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "rxjs": "^5.5.11",
     "zone.js": "^0.8.14"
