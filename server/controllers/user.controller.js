@@ -44,20 +44,3 @@ exports.login = function (req, res) {
     });
   })(req, res);
 }
-
-exports.get = function(req, res) {
-  User.findById(req.user._id, { hash: 0 })
-    .then(function (user) {
-      return res.status(200).json({
-        status: 200,
-        data: user,
-        message: "Success"
-      });
-    })
-    .catch(function (err) {
-      return res.status(400).json({
-        status: 400,
-        message: err.message
-      });
-    });
-}
